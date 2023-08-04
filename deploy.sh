@@ -5,7 +5,7 @@ apt-get update
 ls
 apt-get install docker.io
 
-systemctl start docker
+sudo systemctl start docker
 
 docker login -u muthummkdh -p mmk07081999
 
