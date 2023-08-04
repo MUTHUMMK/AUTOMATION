@@ -1,41 +1,29 @@
-pipeline{
+pipeline {
     agent any
-    parameters {
-        credentials credentialType: 'com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey', defaultValue: 'apache', name: 'ssh', required: false
-}
-    stages{
-        stage('git clone'){
-            steps{
-                git branch: 'main', url: 'https://github.com/MUTHUMMK/Automation.git'
-            }
 
+    stages {
+        stage('git') {
+            steps {
+                git branch: 'main', url: 'https://github.com/MUTHUMMK/AUTOMATION.git'
+            }
         }
-        stage('build docker image'){
-            steps{
+        stage('build_image & push') {
+            steps {
                 script{
-                    sh 'docker build -t webapp .'
+                    sh "sh build.sh"
                 }
             }
         }
-        stage('push image'){
-            steps{
+        stage('deploy') {
+            steps {
                 script{
-                    withCredentials([string(credentialsId: 'dockerhub-pw', variable: 'dockerhub')]) {
-                    sh 'docker login -u muthummkdh -p ${dockerhub}'
-                    }
-                    sh 'docker tag webapp muthummkdh/apache1'
-                    sh 'docker push muthummkdh/apache1'
+                    withCredentials([sshUserPrivateKey(credentialsId: 'sskkey', keyFileVariable: 'sshkeyvar', usernameVariable: 'ssh')]) {
+                        
+                        sh 'sh deploy.sh $sshkeyvar'
+                        
+}
                 }
             }
         }
-        stage('deploy apche server'){
-            steps{
-                sshagent(['apache']) {
-                    sh 'scp -o StrictHostKeyChecking=no index.html ubuntu@54.169.50.131:/var/www/html/'
-
-}
-            }
-        }
-  
-    } 
+    }
 }
