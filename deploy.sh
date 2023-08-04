@@ -1,9 +1,9 @@
 #!/bin/bash
 export pwd="$1"
 ssh -o StrictHostKeyChecking=no -i "$pwd" ubuntu@13.215.59.213 <<EOF
-apt-get update
+sudo apt-get update
 ls
-apt-get install docker.io
+sudo apt-get install docker.io
 
 sudo systemctl start docker
 
