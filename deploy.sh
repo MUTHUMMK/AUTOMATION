@@ -7,9 +7,9 @@ apt-get install docker.io
 
 sudo systemctl start docker
 
-docker login -u muthummkdh -p mmk07081999
+sudo docker login -u muthummkdh -p mmk07081999
 
-docker run -itd --name myapp -p "9090:80" muthummkdh/new
+sudo docker run -itd --name myapp -p "9090:80" muthummkdh/new
 
 if curl localhost:9090
 then
