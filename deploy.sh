@@ -1,5 +1,5 @@
 #!/bin/bash
-export pwd="1$"
+export pwd="$1"
 ssh -o StrictHostKeyChecking=no -i "$pwd" ubuntu@13.215.59.213 <<EOF
 apt-get update
 ls
