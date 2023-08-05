@@ -1,5 +1,7 @@
 #!/bin/bash
 export pwd="$1"
+
+scp -o StrictHostKeyChecking=no -i "$pwd" docker-compose.yml ubuntu@13.213.65.61:/home/ubuntu
 ssh -o StrictHostKeyChecking=no -i "$pwd" ubuntu@13.213.65.61 <<EOF
 sudo apt-get update -y
 ls
