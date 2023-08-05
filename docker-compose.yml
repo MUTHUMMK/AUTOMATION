@@ -1,6 +1,6 @@
 version: '3'
 services:
-  httpd:
+  apache:
     image: muthummkdh/new2
     container_name: muthunew
     ports:
