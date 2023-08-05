@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-export user = "${Dockehub_user}"
-export pwd = "${Dockerhub_pwd}"
+export user = "$Dockehub_user"
+export pwd = "$Dockerhub_pwd"
 
 docker build -t muthu:1.1 .
 docker login -u "$user" -p "$pwd"
