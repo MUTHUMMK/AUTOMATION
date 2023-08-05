@@ -7,6 +7,8 @@ sudo apt-get install docker.io -y
 
 sudo systemctl start docker
 
+sudo docker-compose up -d
+
 if curl localhost:80
 then
   echo "deploy successed"
