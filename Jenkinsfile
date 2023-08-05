@@ -10,7 +10,7 @@ pipeline {
         stage('build_image & push') {
             steps {
                 script{
-                    sh "sh build.sh $sshkeyvar"
+                    sh "sh build.sh "
                 }
             }
         }
