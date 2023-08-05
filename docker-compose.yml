@@ -4,4 +4,4 @@ services:
     image: muthummkdh/new2
     container_name: muthunew
     ports:
-      -80:80
+      - "80:80"
