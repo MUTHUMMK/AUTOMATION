@@ -3,9 +3,12 @@ export pwd="$1"
 ssh -o StrictHostKeyChecking=no -i "$pwd" ubuntu@13.213.65.61 <<EOF
 sudo apt-get update -y
 ls
+
 sudo apt-get install docker.io -y
+sudo  apt-get install docker-compose -y
 
 sudo systemctl start docker
+
 
 sudo docker-compose up -d
 
