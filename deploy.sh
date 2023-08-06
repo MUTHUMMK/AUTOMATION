@@ -1,8 +1,16 @@
 #!/bin/bash
-export pwd="$1"
 
-scp -o StrictHostKeyChecking=no -i "$sshkervar" docker-compose.yml ubuntu@18.141.183.254:/home/ubuntu
-ssh -o StrictHostKeyChecking=no -i "$sshkervar" ubuntu@18.141.183.254<<EOF
+#Terraform use to create the infrastructure for instances
+terraform init && terraform plan && terraform apply -auto-approve
+
+# to get public IP and store the variable 
+a=$(aws ec2 describe-instances --region ap-southeast-1 --filters 'Name=tag:Name,Values=MMK' --query 'Reservations[].Instances[].PublicIpAddress' --output text)
+
+echo $a
+
+# login the ssh-remote server & put the variable instead of public ip
+scp -o StrictHostKeyChecking=no -i "$sshkey" docker-compose.yml ubuntu@$a:/home/ubuntu
+ssh -o StrictHostKeyChecking=no -i "$sshkey" ubuntu@$a<<EOF
 sudo apt-get update -y
 ls
 
