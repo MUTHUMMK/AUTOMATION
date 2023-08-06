@@ -1,29 +1,37 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_HUB = credentials"dockerhublogin"
+        ACCESS_KEY = credentials"Access-key-ID"
+        SECRET_KEY = credentials"Secret-access-key"
+}
 
     stages {
-        stage('git') {
+        stage('git'){
             steps {
                 git branch: 'main', url: 'https://github.com/MUTHUMMK/AUTOMATION.git'
             }
         }
-        stage('build_image & push') {
+    
+    
+        stage('build'){
             steps {
                 script{
-                    sh "sh build.sh "
+                    sh 'sh build.sh'
+                }
                 }
             }
-        }
-        stage('deploy') {
-            steps {
+            
+        stage('deploy'){
+            steps{
                 script{
-                    withCredentials([sshUserPrivateKey(credentialsId: 'sskkey', keyFileVariable: 'sshkeyvar', usernameVariable: 'ssh')]) {
-                        
-                        sh 'sh deploy.sh $sshkeyvar'
-                        
+                    withCredentials([sshUserPrivateKey(credentialsId: 'sshkey', keyFileVariable: 'sshkey', usernameVariable: 'sshusr')]) {
+                        sh 'sh deploy.sh $sshkey'
 }
                 }
             }
         }
+            
     }
+    
 }
