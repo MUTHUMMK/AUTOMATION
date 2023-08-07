@@ -7,10 +7,11 @@ terraform init && terraform apply -auto-approve
 a=$(aws ec2 describe-instances --region ap-southeast-1 --filters 'Name=tag:Name,Values=MMK' --query 'Reservations[].Instances[].PublicIpAddress' --output text)
 
 echo $a
+export psw=$1
 
 # login the ssh-remote server & put the variable instead of public ip
-sudo scp -o StrictHostKeyChecking=no -i $sshkey docker-compose.yml ubuntu@$a:/home/ubuntu
-sudo ssh -o StrictHostKeyChecking=no -i $sshkey ubuntu@$a<<EOF
+scp -o StrictHostKeyChecking=no -i $psw docker-compose.yml ubuntu@$a:/home/ubuntu
+ssh -o StrictHostKeyChecking=no -i $psw ubuntu@$a<<EOF
 sudo apt-get update -y
 ls
 
