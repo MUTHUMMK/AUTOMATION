@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 #Terraform use to create the infrastructure for instances
 terraform init && terraform apply -auto-approve
 
